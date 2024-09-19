@@ -33,9 +33,10 @@ class UserListener
      */
     public function encodePassword(User $user)
     {
-        if($user->getPlainPassword() === null)
+        if($user->getPlainPassword() === null) {
             return;
-
+        }
+        
         $user->setPassword($this->hasher->hashPassword($user, $user->getPlainPassword()));
 
         $user->setPlainPassword(null);
