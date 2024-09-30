@@ -1,0 +1,64 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Projet1_Symfony6 - 
+	{{ recipe.name }}
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success mt-4">
+				{{ message }}
+			</div>
+		{% endfor %}
+
+		<h1 class="mt-4">{{ recipe.name }}</h1>
+
+		<div>
+			<span class="badge bg-primary">Créée le
+				{{ recipe.createdAt|date('d/m/Y') }}</span>
+		</div>
+
+		<div class="mt-4">
+			{% if recipe.time %}
+				<p>Difficulté :
+					{{ recipe.difficulty }}/5</p>
+			{% else %}
+				<p>Difficulté non renseigné</p>
+			{% endif %}
+		</div>
+
+		<div class="mt-4">
+			{% if recipe.time %}
+				<p>Pour
+					{{ recipe.nbPeople }}
+					personnes</p>
+			{% else %}
+				<p>Nombre de personnes non renseigné</p>
+			{% endif %}
+		</div>
+
+		<div class="mt-4">
+			{% if recipe.price %}
+				<p>Prix (en €) :
+					{{ recipe.price }}</p>
+			{% else %}
+				<p>Prix non renseigné</p>
+			{% endif %}
+		</div>
+
+		<div class="mt-4">
+			{{ recipe.description|raw }}
+		</div>
+
+		<div class="mt-4">
+			<p class="mt-4">Ingrédients</p>
+			{% for ingredient in recipe.ingredients %}
+				<span class="badge bg-primary">{{ ingredient.name }}</span>
+			{% endfor %}
+		</div>
+
+	</div>
+{% endblock %}
