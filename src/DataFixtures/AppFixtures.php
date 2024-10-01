@@ -3,10 +3,11 @@
 namespace App\DataFixtures;
 
 use Faker\Factory;
+use App\Entity\Mark;
+use App\Entity\User;
 use Faker\Generator;
 use App\Entity\Recipe;
 use App\Entity\Ingredient;
-use App\Entity\User;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -53,6 +54,7 @@ class AppFixtures extends Fixture
         }
 
         // Recipes
+        $recipes = [];
         for ($j = 0; $j < 25; $j++) {
             $recipe = new Recipe();
             $recipe->setName($this->faker->word())
@@ -68,7 +70,21 @@ class AppFixtures extends Fixture
             for ($k = 0; $k < mt_rand(5, 15); $k++) {
                 $recipe->addIngredient($ingredients[mt_rand(0, count($ingredients) - 1)]);
             }
+
+            $recipes[] = $recipe;
             $manager->persist($recipe);
+        }
+
+        // Marks
+        foreach ($recipes as $recipe) {
+            for ($i = 0; $i < mt_rand(0, 4); $i++) {
+                $mark = new Mark();
+                $mark->setMark(mt_rand(1, 5))
+                    ->setUser($users[mt_rand(0, count($users) - 1)])
+                    ->setRecipe($recipe);
+
+                $manager->persist($mark);
+            }
         }
 
         $manager->flush();
