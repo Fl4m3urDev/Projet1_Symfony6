@@ -7,10 +7,11 @@ use App\Entity\Ingredient;
 use App\Repository\IngredientRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
@@ -136,6 +137,13 @@ class RecipeType extends AbstractType
                 'constraints' => [
                     new Assert\NotNull()
                 ]
+            ])
+            ->add('imageFile', VichImageType::class, [
+                'label' => 'Image de la recette',
+                'label_attr' => [
+                    'class' => 'form-label mt-4'
+                ],
+                'required' => false
             ])
             ->add('ingredients', EntityType::class, [
                 'class' => Ingredient::class,
