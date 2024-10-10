@@ -1,16 +1,19 @@
 <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarColor02">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
+	<div class="container-fluid">
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarColor02">
+			<ul class="navbar-nav me-auto">
+				<li class="nav-item">
 					<a class="nav-link active" href="{{ path('home.index') }}">Accueil
 						<span class="visually-hidden">(current)</span>
 					</a>
-        </li>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path('recipe.community') }}">Recettes de la communauté
+					</a>
+				</li>
 				{% if app.user %}
 					<li class="nav-item">
 						<a class="nav-link" href="{{ path('ingredient.index') }}">Mes ingrédients
@@ -21,8 +24,8 @@
 						</a>
 					</li>
 				{% endif %}
-      </ul>
-      <div class="d-flex">
+			</ul>
+			<div class="d-flex">
 				<ul class="navbar-nav me-auto">
 					{% if app.user %}
 						<li class="nav-item dropdown" style="margin-right: 5rem;">
@@ -32,9 +35,9 @@
 								<a class="dropdown-item" href="{{ path('user.edit.password', {id : app.user.id}) }}">Modifier mon mot de passe</a>
 								<div class="dropdown-divider"></div>
 								{# {% if 'ROLE_ADMIN' in app.user.roles %}
-									<a class="dropdown-item" href="{{ path('admin') }}">Administration</a>
-									<div class="dropdown-divider"></div>
-								{% endif %} #}
+																									<a class="dropdown-item" href="{{ path('admin') }}">Administration</a>
+																									<div class="dropdown-divider"></div>
+																								{% endif %} #}
 								<a class="dropdown-item" href="{{ path('security.logout') }}">Déconnexion</a>
 							</div>
 						</li>
@@ -50,6 +53,6 @@
 					{% endif %}
 				</ul>
 			</div>
-    </div>
-  </div>
+		</div>
+	</div>
 </nav>

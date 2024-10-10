@@ -46,7 +46,7 @@ class IngredientController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
-    #[Route('/ingredient/nouveau', 'ingredient.new', methods: ['GET', 'POST'])]
+    #[Route('/ingredient/creation', 'ingredient.new')]
     #[IsGranted('ROLE_USER')]
     public function new(Request $request, EntityManagerInterface $manager): Response
     {
@@ -68,7 +68,6 @@ class IngredientController extends AbstractController
 
             return $this->redirectToRoute('ingredient.index');
         }
-
 
         return $this->render('pages/ingredient/new.html.twig', [
             'form' => $form->createView()
@@ -116,6 +115,7 @@ class IngredientController extends AbstractController
      * @param Ingredient $ingredient
      * @return Response
      */
+    #[IsGranted(new Expression("is_granted('ROLE_USER') and user === subject.getUser()"), subject: "ingredient",)]
     #[Route('/ingredient/suppression/{id}', 'ingredient.delete', methods: ['GET'])]
     public function delete(EntityManagerInterface $manager, Ingredient $ingredient): Response
     {

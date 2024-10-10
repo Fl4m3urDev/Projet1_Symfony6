@@ -43,9 +43,9 @@ class RecipeController extends AbstractController
     }
 
     #[Route('/recette/communaute', 'recipe.community', methods: ['GET'])]
-    public function indexPublic(PaginatorInterface $paginator, Request $request): Response {
-
+    public function indexPublic(RecipeRepository $repository, PaginatorInterface $paginator, Request $request): Response {
         $recipes = $paginator->paginate(
+            $repository->findPublicRecipe(null),
             $request->query->getInt('page', 1),
             10
         );
@@ -134,6 +134,7 @@ class RecipeController extends AbstractController
      * @param Recipe $recipe
      * @return Response
      */
+    #[IsGranted(new Expression("is_granted('ROLE_USER') and user === subject.getUser()"), subject: "recipe",)]
     #[Route('/recette/suppression/{id}', 'recipe.delete', methods: ['GET'])]
     public function delete(
         EntityManagerInterface $manager,

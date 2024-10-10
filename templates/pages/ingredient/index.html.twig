@@ -52,11 +52,16 @@
 					{% endfor %}
 				</tbody>
 			</table>
+
 			<div class="navigation d-flex justify-content-center mt-4">
 				{{ knp_pagination_render(ingredients) }}
 			</div>
 		{% else %}
 			<h4>Il n'y a pas d'ingrédients</h4>
-		</div>
-	{% endif %}
+
+			<a href="{{ path('ingredient.new') }}" class="btn btn-primary">
+				Créer un ingrédient
+			</a>
+		{% endif %}
+	</div>
 {% endblock %}
